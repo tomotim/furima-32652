@@ -2,86 +2,96 @@
 
 ## users テーブル
 
-| Column     | Type     | Options     |
-| ---------- | -------- | ----------- |
-| nickname   | string   | null: false |
-| email      | string   | null: false |
-| password   | string   | null: false |
-| name       | string   | null: false |
-| name_kana  | string   | null: false |
-| birth_date | datetime | null: false |
-### Association
-
-- has_many :items        dependent: :destroy 
-- has_many :credit_cards dependent: :destroy
-
-## credit cardsテーブル
-
-| Column         | Type       | Options                        |
-| ---------------| ---------- | ------------------------------ |
-| number         | integer    | null: false                    |
-| validated_date | datetime   | null: false                    |
-| security_code  | integer    | null: false                    |
-| user           | references | null: false, foreign_key: true |
-### Association
-
-- be_longs_to :users
-
-## item テーブル
-
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| product      | string     | null: false                    |
-| explanation  | text       | null: false                    |
-| ctegory      | string     | null: false                    |
-| condtion     | string     | null: false                    |
-| price        | integer    | null: false                    |
-| fee          | integer    | null: false                    |
-| profit       | integer    | null: false                    |
-| user         | references | null: false, foreign_key: true |
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| first_name_kana    | string | null: false |
+| last_name_kana     | string | null: false |
+| birth_year         | date   | null: false |
+| birth_month        | date   | null: false |
+| birth_day          | date   | null: false |
 
 ### Association
 
-be_longs_to :users
-has_one :delivery_destinations dependent: :destroy
-has_one :deliverys             dependent: :destroy
-has_one :images                dependent: :destroy
+- has_many :item        dependent: :destroy 
+- has_many :credit_card dependent: :destroy
+- has_many :buying       
 
-### deliverys テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| burden        | string     | null: false                    |
-| shipping_area | string     | null: false                    |
-| shipping_days | string     | null: false                    |
-| item          | references | null: false, foreign_key: true |
-
-### Association
-
-be_longs_to :items
-
-### images
-
-| Column    | Type          | Options                        |
-| --------- | ------------- | ------------------------------ |
-| image     | ActiveStorage |                                |
-| user      | references    | null: false, foreign_key: true |
-### Association
-
-be_longs_to :items
-
-### delivery destinations 
+## credit_cardsテーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| zip_code         | integer    | null: false                    |
-| prefectures      | string     | null: false                    |
-| municipality     | string     | null: false                    |
-| street_number    | string     | null: false                    |
-| building_name    | string     |                                |
-| telephone_number | integer    | null: false                    |
-| item             | references | null: false, foreign_key: true |
+| number           | integer    | null: false                    |
+| expiration_year  | integer    | null: false                    |
+| expiration_month | integer    | null: false                    |
+| security_code    | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
+### Association
+
+- belongs_to :user
+
+## item テーブル
+
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| product          | string     | null: false                    |
+| explanation      | text       | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
+| delivery         | references | null: false, foreign_key: true |
 
 ### Association
 
-be_longs_to :items
+belongs_to :user
+belongs_to :buying
+belongs_to_active_hash :delivery
+
+### buying
+
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| zip_code         | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| municipality     | string     | null: false                    |
+| street_number    | string     | null: false                    |
+| building_name    | string     |                                |
+| telephone_number | string     | null: false                    |
+| item             | references | null: false, foreign_key: true |
+| user             | references | null: false, foreign_key: true |
+| prefectures      | references | null: false, foreign_key: true |
+
+### Association
+
+belongs_to :user
+belongs_to :item 
+belongs_to :prefectures
+
+### deliverys
+
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| ctegory_id       | integer    | null: false                    |
+| condtion_id      | integer    | null: false                    |
+| burden_id        | integer    | null: false                    |
+| shipping_area_id | integer    | null: false                    |
+| shipping_days_id | integer    | null: false                    |
+| item             | references | null: false, foreign_key:true  |
+
+### Association
+
+belongs_to_active_hash :items
+
+### prefectures
+
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| ctegory_id       | integer    | null: false                    |
+| buying           | references | null: false, foreign_key:true  |
+
+### Association
+
+belongs_to_active_hash :buying
