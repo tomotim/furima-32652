@@ -11,28 +11,12 @@
 | last_name          | string | null: false |
 | first_name_kana    | string | null: false |
 | last_name_kana     | string | null: false |
-| birth_year         | date   | null: false |
-| birth_month        | date   | null: false |
-| birth_day          | date   | null: false |
+| birth_date         | date   | null: false |
 
 ### Association
 
 - has_many :item        dependent: :destroy 
-- has_many :credit_card dependent: :destroy
 - has_many :buying       
-
-## credit_cardsテーブル
-
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| number           | integer    | null: false                    |
-| expiration_year  | integer    | null: false                    |
-| expiration_month | integer    | null: false                    |
-| security_code    | integer    | null: false                    |
-| user             | references | null: false, foreign_key: true |
-### Association
-
-- belongs_to :user
 
 ## item テーブル
 
@@ -42,7 +26,6 @@
 | explanation      | text       | null: false                    |
 | price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
-| delivery         | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -79,19 +62,20 @@ belongs_to :prefectures
 | burden_id        | integer    | null: false                    |
 | shipping_area_id | integer    | null: false                    |
 | shipping_days_id | integer    | null: false                    |
-| item             | references | null: false, foreign_key:true  |
 
 ### Association
 
 belongs_to_active_hash :items
 
-### prefectures
+## credit_cardsテーブル (active_hash)
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| ctegory_id       | integer    | null: false                    |
-| buying           | references | null: false, foreign_key:true  |
+| user             | references | null: false, foreign_key: true |
+| number_id        | integer    | null: false                    |
+| customer_id      | integer    | null: false                    |
+| security_code_id | integer    | null: false                    |
 
 ### Association
 
-belongs_to_active_hash :buying
+- belongs_to :user
