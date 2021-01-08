@@ -14,8 +14,8 @@
 | birth_date         | date   | null: false |
 ### Association
 
-- has_many :item        dependent: :destroy 
-- has_many :purchase       
+- has_many :items        dependent: :destroy 
+- has_many :purchases       
 
 
 
@@ -35,7 +35,7 @@
 ### Association
 
 belongs_to :user
-has_many :purchase 
+has_many :purchases 
 
 
 
@@ -62,10 +62,10 @@ has_one :buying
 | street_number    | string     | null: false                    |
 | building_name    | string     |                                |
 | telephone_number | string     | null: false                    |
-| purchases        | references | null: false, foreign_key: true |
+| purchase         | references | null: false, foreign_key: true |
 
 ### Association
 
-belongs_to :purchases
+belongs_to :purchase
 
 
