@@ -35,7 +35,7 @@
 ### Association
 
 belongs_to :user
-has_many :purchases 
+has_one :purchases 
 
 
 
@@ -58,6 +58,7 @@ has_one :buying
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | zip_code         | string     | null: false                    |
+| shipping_area_id | integer    | null: false                    |
 | municipality     | string     | null: false                    |
 | street_number    | string     | null: false                    |
 | building_name    | string     |                                |
