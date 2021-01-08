@@ -5,7 +5,7 @@
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
 | nickname           | string | null: false |
-| email              | string | null: false |
+| email              | string | null: false uniqueness: true|
 | encrypted_password | string | null: false |
 | first_name         | string | null: false |
 | last_name          | string | null: false |
@@ -35,11 +35,11 @@
 ### Association
 
 belongs_to :user
-has_one :purchases 
+has_one :purchase
 
 
 
-### purchase
+### purchases テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
@@ -53,7 +53,7 @@ has_one :buying
 
 
 
-### buying
+### buyings テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
