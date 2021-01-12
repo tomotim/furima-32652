@@ -1,11 +1,17 @@
 class User < ApplicationRecord
-  VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :password, format: { with: VALID_PASSWORD_REGEX }
+  validates_format_of :password, with: PASSWORD_REGEX
+
+  validates :first_name_kana, :last_name_kana, presence: true,
+  format: {
+    with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/,
+    message: "全角カタカナのみで入力して下さい"}
   
   validates :nickname,           presence: true
   validates :first_name,         presence: true
