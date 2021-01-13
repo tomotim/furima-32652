@@ -8,15 +8,16 @@ class User < ApplicationRecord
 
   validates_format_of :password, with: PASSWORD_REGEX
 
-  validates :first_name_kana, :last_name_kana, presence: true,
+  validates :first_name_kana, :last_name_kana, presence: true, 
   format: {
     with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/,
     message: "全角カタカナのみで入力して下さい"}
   
+  with_options presence: true, format: { with: /\A[ぁ-ゔァ-ヴ\p{Ideographic}ａ-ｚＡ-Ｚ０-９]+\z/, message: 'に全角文字を使用してください' } do
+    validates :first_name
+    validates :last_name
+  end
+
   validates :nickname,           presence: true
-  validates :first_name,         presence: true
-  validates :last_name,          presence: true
-  validates :first_name_kana,    presence: true
-  validates :last_name_kana,     presence: true
   validates :birth_date,         presence: true
 end
