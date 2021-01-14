@@ -18,6 +18,8 @@ class User < ApplicationRecord
     validates :last_name
   end
 
-  validates :nickname,           presence: true
-  validates :birth_date,         presence: true
+  validates :nickname,   presence: true
+  validates :birth_date, presence: true
+
+  has_many :items,       dependent: :destroy 
 end
