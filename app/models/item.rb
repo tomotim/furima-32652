@@ -1,13 +1,27 @@
 class Item < ApplicationRecord
-  validates :product,          presence: true
-  validates :explanation,      presence: true
-  validates :ctegory_id,       presence: true
-  validates :condtion_id,      presence: true
-  validates :burden_id,        presence: true
-  validates :shipping_area_id, presence: true
-  validates :shipping_days_id, presence: true
-  validates :price,            presence: true
- 
   belongs_to :user
   has_one_attached :image
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :ctegory
+  belongs_to :condtion
+  belongs_to :burden
+  belongs_to :shipping_area
+  belongs_to :shipping_days
+
+  with_options presence: true do
+    #ジャンルの選択が「--」の時は保存できないようにする
+    with_options numericality: { other_than: 0, message: 'select' } do
+      validates :ctegory_id
+      validates :condtion_id      
+      validates :burden_id  
+      validates :shipping_area_id 
+      validates :shipping_days_id 
+    end
+
+    validates :product          
+    validates :explanation      
+    validates :price
+    validates :image
+  end
 end
