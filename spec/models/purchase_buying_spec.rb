@@ -93,7 +93,7 @@ RSpec.describe PurchaseBuying, type: :model do
       it 'telephone_numberが空だと保存できない' do
         @purchase_buying.telephone_number = ''
         @purchase_buying.valid?
-        expect(@purchase_buying.errors.full_messages).to include("Telephone number can't be blank", 'Telephone number Input only number')
+        expect(@purchase_buying.errors.full_messages).to include("Telephone number can't be blank")
       end
       it 'telephone_numberが11桁以下だと保存できない' do
         @purchase_buying.telephone_number = '0901234567'
