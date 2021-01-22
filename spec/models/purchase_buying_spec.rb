@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe PurchaseBuying, type: :model do

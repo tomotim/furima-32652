@@ -1,6 +1,7 @@
 class PurchaseBuying
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :zip_code, :shipping_area_id, :municipality, :street_number, :building_name, :telephone_number, :token
+  attr_accessor :user_id, :item_id, :zip_code, :shipping_area_id, :municipality, :street_number, :building_name,
+                :telephone_number, :token
 
   with_options presence: true do
     validates :user_id
@@ -17,6 +18,7 @@ class PurchaseBuying
 
   def save
     purchase = Purchase.create(user_id: user_id, item_id: item_id)    # 住所の情報を保存
-    Buying.create(zip_code: zip_code, shipping_area_id: shipping_area_id, municipality: municipality, street_number: street_number, building_name: building_name, telephone_number: telephone_number, purchase_id: purchase.id)
+    Buying.create(zip_code: zip_code, shipping_area_id: shipping_area_id, municipality: municipality,
+                  street_number: street_number, building_name: building_name, telephone_number: telephone_number, purchase_id: purchase.id)
   end
 end
